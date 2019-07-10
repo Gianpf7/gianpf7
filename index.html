@@ -1,0 +1,184 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>NotifiCripto</title>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body class="container" style="padding-top: 0%">
+<p><br><br><br></p>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <p class="navbar-text">NotifiCripto - Notificações de criptomoedas.</p>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-sm-5 col-lg-4">
+      <div class="card" style="width: 100%">
+        <img src="https://ichef.bbci.co.uk/news/660/cpsprodpb/174DC/production/_99325459_gettyimages-825838988.jpg" class="card-img-top" alt="..." style="width: 100%">
+        <div class="card-body">
+          <h5 class="card-title">Bitcoin</h5>
+          <p class="card-text">Bitcoin é uma criptomoeda descentralizada, sendo uma forma de dinheiro eletrônico.</p>
+          <div style="display: inline"><p style="display: inline">R$ </p><p style="display: inline" id="precoBTC"></p></div>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">R$</span>
+            <input type="number" class="form-control" placeholder="Preço Desejado" aria-describedby="basic-addon1" id="precoDesejadoBTC" value="0">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-5 col-lg-4">
+      <div class="card" style="width: 100%">
+        <img src="https://www.cryptonewsz.com/wp-content/uploads/2019/04/Why-NANO-is-Worth-Your-Attention.jpg" class="card-img-top" alt="..." style="width: 100%">
+        <div class="card-body">
+          <h5 class="card-title">Nano</h5>
+          <p class="card-text">Nano (anteriormente conhecida como RaiBlocks) é uma criptomoeda peer-to-peer de código aberto, de baixa latência e alta escalabilidade, que oferece transações instantâneas livres de taxas.</p>
+          <div style="display: inline"><p style="display: inline">R$ </p><p style="display: inline" id="precoNANO"></p></div>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">R$</span>
+            <input type="number" class="form-control" placeholder="Preço Desejado" aria-describedby="basic-addon1" id="precoDesejadoNANO" value="0">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+      <div class="col-sm-5 col-lg-4">
+        <div class="card" style="width: 100%">
+          <img src="https://criptoinvest.pt/wp-content/uploads/2019/04/TRON-Criptomoeda-1110x550.jpg" class="card-img-top" alt="..." style="width: 100%">
+          <div class="card-body">
+            <h5 class="card-title">Tron</h5>
+            <p class="card-text">Tron é um protocolo descentralizado criado pelo chinês Justin Sun, que pretende criar uma plataforma de entretenimento baseada em Blockchain.</p>
+            <div style="display: inline"><p style="display: inline">R$ </p><p style="display: inline" id="precoTRON"></p></div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">R$</span>
+              <input type="number" class="form-control" placeholder="Preço Desejado" aria-describedby="basic-addon1" id="precoDesejadoTRON" value="0">
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </div>
+  <p id="info"></p>
+
+  <div class="alert alert-success alert-dismissible" role="alert" id="alertaBTC">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Boas Noticias!</strong> O Bitcoin superou o preço desejado.
+  </div>
+
+  <!--<input class="btn btn-success" type="button" onclick="setInterval(getCripto(), 1000)" value="Get Cripto">-->
+
+  <style>
+  .vermelho {
+    color: red;
+  }
+
+  .verde {
+    color: green;
+  }
+
+  #precoBTC {
+    font-weight: bold;
+  }
+
+  #precoNANO {
+    font-weight: bold;
+  }
+
+  #precoTRON {
+    font-weight: bold;
+  }
+
+  .alert {
+    position: fixed;
+    top: 10%;
+    margin-right: 10%;
+  }
+  </style>
+
+  <!--<script type="text/javascript" src="./scripts.js"></script>-->
+  <script>
+  var myVar = setInterval(getCripto, 1000);
+  var btcAnterior = 0;
+  var nanoAnterior = 0;
+  var tronAnterior = 0;
+/*
+  $('#alertaBTC').on('closed.bs.alert', function () {
+    // do something…
+    console.log("fechou");
+    document.body.innerHTML = document.body.innerHTML + '<div class="alert alert-success alert-dismissible" role="alert" id="alertaBTC"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Boas Noticias!</strong> O Bitcoin superou o preço desejado.</div>';
+  })*/
+
+  function getCripto(){
+    var btc = document.getElementById("precoBTC");
+    var nano = document.getElementById("precoNANO");
+    var tron = document.getElementById("precoTRON");
+    btc.innerHTML = (Math.random()*10000).toFixed(2);
+    nano.innerHTML = (Math.random()*10000).toFixed(2);
+    tron.innerHTML = (Math.random()*10000).toFixed(2);
+    //
+    if(Number(btc.textContent) > btcAnterior){
+      btc.classList.remove('vermelho');
+      btc.classList.add('verde');
+    } else {
+      btc.classList.remove('verde');
+      btc.classList.add('vermelho');
+    }
+    if(Number(nano.textContent) > nanoAnterior){
+      nano.classList.remove('vermelho');
+      nano.classList.add('verde');
+    } else {
+      nano.classList.remove('verde');
+      nano.classList.add('vermelho');
+    }
+    if(Number(tron.textContent) > tronAnterior){
+      tron.classList.remove('vermelho');
+      tron.classList.add('verde');
+    } else {
+      tron.classList.remove('verde');
+      tron.classList.add('vermelho');
+    }
+    //
+    btcAnterior = Number(btc.textContent);
+    nanoAnterior = Number(nano.textContent);
+    tronAnterior = Number(tron.textContent);
+    //
+    precoDesejadoBTC = document.getElementById("precoDesejadoBTC");
+    precoDesejadoNANO = document.getElementById("precoDesejadoNANO");
+    precoDesejadoTRON = document.getElementById("precoDesejadoTRON");
+    if(Number(precoDesejadoBTC.value) > 0){
+      if(Number(btc.textContent) > Number(precoDesejadoBTC.value)){
+        //alert("O Bitcoin está acima do preço desejado. R$"+btc.textContent);
+        document.body.innerHTML = document.body.innerHTML + '<div class="alert alert-success alert-dismissible" role="alert" id="alertaBTC"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Boas Noticias!</strong> O Bitcoin superou o preço desejado.</div>';
+
+      }
+    }
+    if(Number(precoDesejadoNANO.value) > 0){
+      if(Number(nano.textContent) > Number(precoDesejadoNANO.value)){
+        //alert("O Nano está acima do preço desejado. R$"+nano.textContent);
+        document.body.innerHTML = document.body.innerHTML + '<div class="alert alert-success alert-dismissible" role="alert" id="alertaBTC"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Boas Noticias!</strong> O Bitcoin superou o preço desejado.</div>';
+
+      }
+    }
+    if(Number(precoDesejadoTRON.value) > 0){
+      if(Number(tron.textContent) > Number(precoDesejadoTRON.value)){
+        //alert("O bitcoin está acima do preço desejado. R$"+tron.textContent);
+        document.body.innerHTML = document.body.innerHTML + '<div class="alert alert-success alert-dismissible" role="alert" id="alertaBTC"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Boas Noticias!</strong> O Bitcoin superou o preço desejado.</div>';
+
+      }
+    }
+  }
+  </script>
+</body>
+</html>
